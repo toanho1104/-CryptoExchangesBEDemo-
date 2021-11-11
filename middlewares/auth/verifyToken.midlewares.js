@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken");
 const { results, key } = require("../../config");
 
 const authenticate = (req, res, next) => {
-  const token = req.header('token')
+  const { token } = req.body
   try {
     const decode = jwt.verify(token, key);
     req.account = decode;
     next();
   } catch (error) {
-    res.status(401).send(results(false, 'you need to login'));
+    res.status(401).send(results('401', false, 'you need to login'));
   }
 }
 
