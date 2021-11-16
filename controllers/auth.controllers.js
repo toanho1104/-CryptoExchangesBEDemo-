@@ -8,11 +8,11 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(mailKey);
 
 const sigin = async (req, res) => {
-  const { email, password, displayName } = req.body;
+  const { email, password } = req.body;
   try {
     const salt = bcryptjs.genSaltSync(10);
     const hashPassword = bcryptjs.hashSync(password, salt);
-    const newUser = await Account.create({ email, password: hashPassword, displayName, type: "user", });
+    const newUser = await Account.create({ email, password: hashPassword, type: "user", });
     const payload = {
       id: newUser.id,
       type: newUser.type,
