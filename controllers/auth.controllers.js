@@ -38,17 +38,16 @@ const login = async (req, res) => {
         }
         const token = jwt.sign(payload, key)
         if (accountLogin.type !== null) {
-          res.status(200).send(results(true, 'login success', { token }))
+          res.status(200).send(results(200, true, 'login success', { token }))
         } else {
-          res.status(401).send(results(false, 'unconfirmed email account;', { token }))
+          res.status(401).send(results(401, false, 'unconfirmed email account;', { token }))
         }
       } else {
-        res.status(401).send(results(false, "password don't match", null))
+        res.status(401).send(results(401, false, "password don't match", null))
       }
     } else {
-      res.status(401).send(results(false, "email don't match", null))
+      res.status(401).send(results(401, false, "email don't match", null))
     }
-    res.status(200).send({ accountLogin })
   } catch (error) {
     res.send(error)
   }
